@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 
 public class MainActivity extends AppCompatActivity {
+    private WebView myWebView;
 
     public void showExternalWebPage(){
         // TODO: Add your code for showing external web page here
@@ -21,19 +22,26 @@ public class MainActivity extends AppCompatActivity {
         // TODO: Add your code for showing internal web page here
     }
 
-    private WebView myWebView;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
-        myWebView = (WebView)findViewById(R.id.my_webView);
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        myWebView = findViewById(R.id.my_webView);
+        myWebView.setWebViewClient(new WebViewClient());
 
+        myWebView.loadUrl("https://google.com");
+         myWebView.getSettings().setJavaScriptEnabled(true);
 
-
-;           /*
+;
+           /*
         * Rename your App. Tip: Values->Strings
         * Enable Internet access for your App. Tip: Manifest
         * Create a WebView element in the layout file main_activity.xml
@@ -58,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
            one (1) screenshot showing your external web page.
         */
     }
+
 
 
     @Override
