@@ -1,32 +1,73 @@
-
 # Rapport
 
-**Skriv din rapport här!**
+mobileapp-programming-webview a22isahe
 
-_Du kan ta bort all text som finns sedan tidigare_.
-
-## Följande grundsyn gäller dugga-svar:
-
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
-
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
-
+Jag andrade strängen app_name i res/values/strings.xml till a22isaheMyWebView för att byta namn på
+appen. appen fick tillgång till internet genom följande kod i AndroidManifest.xml:
 
 ```
-
+  <uses-permission android:name="android.permission.INTERNET"/>
 ```
 
-Bilder läggs i samma mapp som markdown-filen.
+Ett WebView-element skapades i activity_main.xml och gavs ett id: "android:id="@+id/my_webView". en
+webview variabel deklarerades och initierades i MainActivity.java. En webviewClient lades till och javascript aktiverades.
 
+```
+    private WebView myWebView; // Först i mainactivity klassen
+    
+    protected void onCreate(Bundle savedInstanceState) {
+    
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        myWebView = findViewById(R.id.my_webView); //Använder id för att visa Webview elementet som specifierats i activity_main.xml
+        myWebView.setWebViewClient(new WebViewClient());
+        myWebView.getSettings().setJavaScriptEnabled(true);
+    }
+    
+```
+en Html-fil skapades : assets/aboutPage.html
+I MainActivity.java lades kod till för att visa html sidan och en url länk. Detta gjordes med dessa metoder:
+```
+public void showExternalWebPage() {
+        // TODO: Add your code for showing external web page here
+        myWebView.loadUrl("https://google.com");
+    }
+
+    public void showInternalWebPage() {
+        // TODO: Add your code for showing internal web page here
+       myWebView.loadUrl("file:///android_asset/aboutPage.html");
+    }
+``` 
+Sist kallades metoderna eventhanteraren onOptionsItemSelected som agerar på knapptryck i hamburgarmenyn
+```
+public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_external_web) {
+            Log.d("==>", "Will display external web page");
+            showExternalWebPage();                              //visar Externa sidan
+            return true;
+        }
+
+        if (id == R.id.action_internal_web) {
+            Log.d("==>", "Will display internal web page");
+            showInternalWebPage();                              //visar Interna Html-sidan
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+```
+
+Screenshots på den färdiga appens externa sida och interna sida:
 
 ![](Screenshot_WebView_external.png)
 ![](Screenshot_WebView_internal.png)
-Läs gärna:
 
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+
