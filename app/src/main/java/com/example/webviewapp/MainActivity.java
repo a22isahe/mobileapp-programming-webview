@@ -14,12 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
     private WebView myWebView;
 
-    public void showExternalWebPage(){
+    public void showExternalWebPage() {
         // TODO: Add your code for showing external web page here
+        myWebView.loadUrl("https://google.com");
     }
 
-    public void showInternalWebPage(){
+    public void showInternalWebPage() {
         // TODO: Add your code for showing internal web page here
+        myWebView.loadUrl("https://www.youtube.com/");
     }
 
 
@@ -28,19 +30,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myWebView = findViewById(R.id.my_webView);
         myWebView.setWebViewClient(new WebViewClient());
+        myWebView.getSettings().setJavaScriptEnabled(true);
 
-        myWebView.loadUrl("https://google.com");
-         myWebView.getSettings().setJavaScriptEnabled(true);
-
-;
+        ;
            /*
         * Rename your App. Tip: Values->Strings
         * Enable Internet access for your App. Tip: Manifest
@@ -68,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -85,12 +82,14 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_external_web) {
-            Log.d("==>","Will display external web page");
+            Log.d("==>", "Will display external web page");
+            showExternalWebPage();
             return true;
         }
 
         if (id == R.id.action_internal_web) {
-            Log.d("==>","Will display internal web page");
+            Log.d("==>", "Will display internal web page");
+            showInternalWebPage();
             return true;
         }
 
